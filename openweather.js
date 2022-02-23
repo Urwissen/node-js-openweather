@@ -1,10 +1,15 @@
 import fetch from "node-fetch"
 import key from "./apiKey.js"
 
-const latitude = 48.7701177843416
-const longitude = 9.169522057503494
-const url = `api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`
+const latitude = 48
+const longitude = 9
+const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric`
 
 fetch(url)
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => printWeather(data))
+    .catch(e => console.error(e))
+
+function printWeather(data) {
+    console.log(`Waether in ${data.name}: ${data.weather[0].description} and ${data.main.temp}°C`)
+}
